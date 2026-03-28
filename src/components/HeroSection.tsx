@@ -1,0 +1,80 @@
+'use client';
+
+import { useRef, useEffect } from 'react';
+import { useInView } from 'framer-motion';
+import { useStore } from '@/store';
+import { PORTFOLIO_CONFIG } from '@/config';
+
+const { hero } = PORTFOLIO_CONFIG;
+
+export default function HeroSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  // Reset the active cluster as soon as the hero section re-enters the
+  // viewport (e.g. user scrolls back to the top from the projects section).
+  // The margin fires slightly before the element is fully visible so the
+  // 3D network snaps back to the global view with no perceivable delay.
+  const isInView = useInView(sectionRef, { margin: '-10% 0px 0px 0px' });
+
+  useEffect(() => {
+    if (isInView) {
+      // Hero visible: global idle state, headline hidden
+      useStore.setState({ activeCluster: null, viewMode: 'projects', headerVisible: false });
+    } else {
+      // Scrolled past hero into Projects — reveal the section headline
+      useStore.setState({ headerVisible: true });
+    }
+  }, [isInView]);
+
+  return (
+    <section
+      ref={sectionRef}
+      id="about"
+      className="min-h-screen flex flex-col justify-center px-6 sm:px-12 lg:px-24 py-24 snap-start"
+    >
+      <div className="max-w-4xl">
+        {/* Eyebrow */}
+        <p className="font-mono text-xs text-cyan-neon tracking-[0.3em] mb-6 uppercase">
+          &gt; INITIALIZING_AGENT
+          <span className="cursor-blink ml-1">_</span>
+        </p>
+
+        {/* Name */}
+        <h1 className="font-sans text-5xl sm:text-7xl font-bold text-white tracking-tight mb-4 leading-none">
+          {hero.name}
+        </h1>
+
+        {/* Role */}
+        <h2 className="font-mono text-xl sm:text-3xl font-semibold text-cyan-neon text-glow-cyan mb-8">
+          {hero.role}
+        </h2>
+
+        {/* Bio */}
+        <p className="font-sans text-base sm:text-lg text-zinc-400 max-w-2xl leading-relaxed mb-12">
+          {hero.description}
+        </p>
+
+        {/* CTAs */}
+        <div className="flex flex-wrap gap-4 pointer-events-auto">
+          <a
+            href="#projects"
+            className="font-mono text-sm tracking-widest uppercase px-6 py-3 rounded border-cyan-glow bg-cyan-neon/10 text-cyan-neon hover:bg-cyan-neon/20 transition-colors duration-200"
+          >
+            View Projects
+          </a>
+          <a
+            href="#contact"
+            className="font-mono text-sm tracking-widest uppercase px-6 py-3 rounded border-magenta-glow bg-magenta/10 text-magenta hover:bg-magenta/20 transition-colors duration-200"
+          >
+            Contact Me
+          </a>
+        </div>
+
+        {/* Decorative grid tag */}
+        <p className="font-mono text-xs text-zinc-700 mt-16 tracking-widest">
+          [ NODE_ID: 0x4a2f…c9b1 ] [ STATUS: ONLINE ] [ LATENCY: 2ms ]
+        </p>
+      </div>
+    </section>
+  );
+}

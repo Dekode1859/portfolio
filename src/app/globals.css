@@ -1,26 +1,104 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+@theme {
+  --color-void: #020202;
+  --color-cyan-neon: #00F0FF;
+  --color-magenta: #BC00FF;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-snap-type: y proximity;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #020202;
+  color: #ffffff;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+/* Blinking cursor animation */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.cursor-blink {
+  animation: blink 1.1s step-end infinite;
+}
+
+/* Scanline overlay for cyberpunk texture */
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+/* 3D label fade-in (used by ClusterLabels Html overlays) */
+@keyframes labelFadeIn {
+  from { opacity: 0; transform: scale(0.75); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@layer utilities {
+  .glass {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    background-color: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .border-cyan-glow {
+    border: 1px solid rgba(0, 240, 255, 0.4);
+    box-shadow: 0 0 16px rgba(0, 240, 255, 0.2), inset 0 0 16px rgba(0, 240, 255, 0.03);
+  }
+
+  .border-magenta-glow {
+    border: 1px solid rgba(188, 0, 255, 0.4);
+    box-shadow: 0 0 16px rgba(188, 0, 255, 0.2), inset 0 0 16px rgba(188, 0, 255, 0.03);
+  }
+
+  .glow-cyan {
+    filter: drop-shadow(0 0 8px #00F0FF);
+  }
+
+  .glow-magenta {
+    filter: drop-shadow(0 0 8px #BC00FF);
+  }
+
+  .text-glow-cyan {
+    text-shadow: 0 0 12px rgba(0, 240, 255, 0.8), 0 0 24px rgba(0, 240, 255, 0.4);
+  }
+
+  .text-glow-magenta {
+    text-shadow: 0 0 12px rgba(188, 0, 255, 0.8), 0 0 24px rgba(188, 0, 255, 0.4);
+  }
+
+  .nav-glow {
+    box-shadow: 0 1px 0 0 rgba(0, 240, 255, 0.25), 0 4px 24px rgba(0, 240, 255, 0.05);
+  }
+
+  .section-divider-cyan::after {
+    content: '';
+    display: block;
+    width: 3rem;
+    height: 2px;
+    margin-top: 0.5rem;
+    background: linear-gradient(to right, #00F0FF, transparent);
+    box-shadow: 0 0 8px #00F0FF;
+  }
+
+  .label-fade-in {
+    animation: labelFadeIn 0.35s ease forwards;
+  }
+
+  .section-divider-magenta::after {
+    content: '';
+    display: block;
+    width: 3rem;
+    height: 2px;
+    margin-top: 0.5rem;
+    background: linear-gradient(to right, #BC00FF, transparent);
+    box-shadow: 0 0 8px #BC00FF;
+  }
 }
