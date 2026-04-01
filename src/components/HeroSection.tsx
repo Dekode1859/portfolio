@@ -62,7 +62,7 @@ export default function HeroSection() {
             View Projects
           </a>
           <a
-            href="#contact"
+            href="https://www.linkedin.com/in/pratik-dwivedi/"
             className="font-mono text-sm tracking-widest uppercase px-6 py-3 rounded border-magenta-glow bg-magenta/10 text-magenta hover:bg-magenta/20 transition-colors duration-200"
           >
             Contact Me

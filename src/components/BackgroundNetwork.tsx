@@ -45,7 +45,7 @@ const SCALE_LERP = 0.12;
 const COLOR_LERP = 0.10;
 
 // Radial pulse wave — 'System Diagnostic' flood-fill (Cluster 4 only)
-const PULSE_SPEED      = 15.0;                    // units per second
+const PULSE_SPEED      = 13.0;                    // units per second
 const PULSE_MAX_RADIUS = POLYHEDRON_RADIUS * 2.2;  // covers full sphere diameter + margin
 const PULSE_HOLD       = 1.5;                      // seconds to hold full-lit state
 const PULSE_SNAP_LERP  = 0.4;                      // fast snap for lit edges
