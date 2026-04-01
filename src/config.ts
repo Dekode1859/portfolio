@@ -17,6 +17,8 @@ interface HeroConfig {
   name:        string;
   role:        string;
   description: string;
+  nodeId:      string;
+  githubUrl:   string;
 }
 
 interface PortfolioConfig {
@@ -59,6 +61,8 @@ export const PORTFOLIO_CONFIG: PortfolioConfig = {
       'I focus on designing the orchestration required to make complex systems function, scale, and communicate effectively. ' +
       'By prioritizing structured data modeling and reliable infrastructure—whether cloud-based or self-hosted—I ensure ' +
       'agentic workflows meet production-grade standards for reliability and maintainability.',
+    nodeId:      'Dekode1859',
+    githubUrl:   'https://github.com/Dekode1859',
   },
 
   projects: [

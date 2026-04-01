@@ -70,8 +70,17 @@ export default function HeroSection() {
         </div>
 
         {/* Decorative grid tag */}
-        <p className="font-mono text-xs text-zinc-700 mt-16 tracking-widest">
-          [ NODE_ID: 0x4a2f…c9b1 ] [ STATUS: ONLINE ] [ LATENCY: 2ms ]
+        <p className="font-mono text-xs text-zinc-500 mt-16 tracking-widest">
+          [ NODE_ID: {hero.nodeId} ] [ STATUS: ONLINE ] [ Github:
+          <a
+            href={hero.githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-zinc-400 hover:text-cyan-neon hover:text-glow-cyan transition-all duration-200 underline underline-offset-2 pointer-events-auto cursor-pointer ml-1"
+          >
+            /Dekode1859
+          </a>
+          ]
         </p>
       </div>
     </section>
