@@ -2,7 +2,7 @@ services:
   portfolio:
     build: .
     ports:
-      - "66123:3000"
+      - "6123:3000"
     restart: unless-stopped
     environment:
       - NODE_ENV=production
