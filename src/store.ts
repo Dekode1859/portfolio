@@ -3,18 +3,11 @@
 import { create } from 'zustand';
 
 interface Store {
-  activeCluster:  number | null;
+  activeCluster:  number | null;   // null = global, 1-3 = project, 4 = skills polyhedron
   hoveredProject: number | null;
-  // 'projects' = normal per-cluster camera + highlights
-  // 'matrix'   = global zoom-out, every skill edge lit simultaneously
-  viewMode:       'projects' | 'matrix';
-  // Hides the section headline during the Hero section
-  headerVisible:  boolean;
 }
 
 export const useStore = create<Store>()(() => ({
   activeCluster:  null,
   hoveredProject: null,
-  viewMode:       'projects',
-  headerVisible:  false,
 }));

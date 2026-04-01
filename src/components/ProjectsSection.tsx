@@ -11,13 +11,15 @@ import type { ProjectConfig } from '@/config';
 function ProjectBlock({ project, index }: { project: ProjectConfig; index: number }) {
   const sectionRef = useRef<HTMLDivElement>(null);
 
-  // Fire when this section crosses into the central 20% of the viewport.
-  const isInView = useInView(sectionRef, { margin: '-40% 0px -40% 0px' });
+  // Strictly centred — identical margin to Hero, Skills, and every other block.
+  // Only fires when the card crosses the centre 10% of the viewport.
+  const isInView = useInView(sectionRef, { margin: '-45% 0px -45% 0px' });
 
   useEffect(() => {
     if (isInView) {
       useStore.setState({ activeCluster: project.id });
     }
+    // No !isInView — the adjacent section's observer takes over.
   }, [isInView, project.id]);
 
   const ordinal = String(index + 1).padStart(2, '0');
@@ -27,28 +29,23 @@ function ProjectBlock({ project, index }: { project: ProjectConfig; index: numbe
       ref={sectionRef}
       className="min-h-screen flex items-center px-6 sm:px-12 lg:px-24 snap-center"
     >
-      {/* Card — left half only; right side is empty so the 3D cluster shows through */}
       <article
         className="w-full max-w-lg glass border-cyan-glow rounded-lg p-8 flex flex-col gap-5 pointer-events-auto"
         onMouseEnter={() => useStore.setState({ hoveredProject: project.id })}
         onMouseLeave={() => useStore.setState({ hoveredProject: null })}
       >
-        {/* Ordinal tag */}
         <span className="font-mono text-xs text-zinc-600 tracking-widest select-none">
           [ PROJECT_{ordinal} ]
         </span>
 
-        {/* Title */}
         <h3 className="font-sans text-xl font-bold text-white leading-snug">
           {project.title}
         </h3>
 
-        {/* Description */}
         <p className="font-sans text-sm text-zinc-400 leading-relaxed">
           {project.description}
         </p>
 
-        {/* Tech stack badges */}
         <div className="flex flex-wrap gap-2">
           {project.techStack.map((tag) => (
             <span
@@ -60,7 +57,6 @@ function ProjectBlock({ project, index }: { project: ProjectConfig; index: numbe
           ))}
         </div>
 
-        {/* Link */}
         <a
           href={project.href}
           className="font-mono text-xs text-magenta hover:text-glow-magenta tracking-widest uppercase transition-all duration-200 self-start"
@@ -75,21 +71,11 @@ function ProjectBlock({ project, index }: { project: ProjectConfig; index: numbe
 // ─── Section ──────────────────────────────────────────────────────────────────
 
 export default function ProjectsSection() {
-  // Reset activeCluster when the entire section leaves the viewport
-  const sectionRef    = useRef<HTMLElement>(null);
-  const sectionInView = useInView(sectionRef, { margin: '0px' });
-
-  useEffect(() => {
-    if (!sectionInView) {
-      useStore.setState({ activeCluster: null });
-    }
-  }, [sectionInView]);
-
+  // No outer section-level reset observer — each ProjectBlock's strictly-centred
+  // useInView handles its own state, and the adjacent Hero/Skills sections
+  // handle theirs. This eliminates all race conditions on scroll reversal.
   return (
-    <section id="projects" ref={sectionRef} className="scroll-mt-14">
-      {/* Headline is now rendered by the fixed <SectionHeadline /> component
-          in page.tsx so it persists across both Projects and Skills sections. */}
-
+    <section id="projects" className="scroll-mt-14">
       {PORTFOLIO_CONFIG.projects.map((project, i) => (
         <ProjectBlock key={project.id} project={project} index={i} />
       ))}

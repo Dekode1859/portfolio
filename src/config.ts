@@ -1,9 +1,3 @@
-// ─── Portfolio configuration — single source of truth ────────────────────────
-//
-// Edit this file to customise every piece of visible content.
-// The 3D network's skill-node labels, the UI cards, and the nav bar all read
-// from here, so a change in one place propagates everywhere automatically.
-
 export interface ProjectConfig {
   /** Must be 1, 2, or 3 — maps to the matching 3D cluster subgraph. */
   id:          1 | 2 | 3;
@@ -15,7 +9,7 @@ export interface ProjectConfig {
 }
 
 interface SkillsConfig {
-  coreSystems:      string[];
+  coreSystems:        string[];
   toolsAndFrameworks: string[];
 }
 
@@ -32,6 +26,28 @@ interface PortfolioConfig {
   skills:   SkillsConfig;
 }
 
+// ─── Master skills list (Skills polyhedron — Cluster 4) ───────────────────────
+// Derived automatically from the skills config. Deduplication ensures the
+// Fibonacci sphere generates exactly one node per unique skill.
+// Exported so BackgroundNetwork.tsx can generate Cluster 4 geometry from it.
+export const MASTER_SKILLS: string[] = (() => {
+  // Can't reference PORTFOLIO_CONFIG yet (declared below), so inline the arrays.
+  // Keep these in sync with the skills block below.
+  const core = [
+    'Python', 'TypeScript', 'FastAPI', 'System Architecture', 
+    'AWS Cloud Architecture', 'Docker', 'RAG Architectures', 'Agentic AI', 
+    'React', 'PostgreSQL', 'Microservices', 'Decentralized Infrastructure',
+    'API Design', 'Database Modeling'
+  ];
+  const tools = [
+    'Temporal', 'LangChain', 'Next.js',  
+    'Ollama', 'OpenAI API', 'CI/CD Pipelines', 'Proxmox', 
+    'Git', 'OpenCode SDK', 'Cloudflare Tunnels', 'LXC',
+    'Webhooks', 'Tauri', 'GitHub Apps', 'Linux'
+  ];
+  return [...new Set([...core, ...tools])];
+})();
+
 export const PORTFOLIO_CONFIG: PortfolioConfig = {
   navTitle: '> AI_ARCHITECT_PROFILE',
 
@@ -39,9 +55,7 @@ export const PORTFOLIO_CONFIG: PortfolioConfig = {
     name:        'Pratik Dwivedi',
     role:        'AI Systems Architect',
     description:
-      'I build production-grade agentic systems and hybrid RAG architectures. ' +
-      'From orchestrating complex LLM workflows for fintech to designing decentralized, ' +
-      'self-hosted infrastructure, I own the technical lifecycle from day zero to deployment.',
+      'I build systems, not just models. I map out how complex systems will function, scale, and communicate before a single line of code is written. I focus on finding the cleanest, industry-standard ways to orchestrate cloud environments, structure databases, and manage tight resource constraints. Whether it\'s designing agentic workflows or architecting decentralized infrastructure, I prioritize production-grade reliability and maintainability.',
   },
 
   projects: [
@@ -49,35 +63,37 @@ export const PORTFOLIO_CONFIG: PortfolioConfig = {
       id:          1,
       title:       'Align: Agentic Slack Orchestrator',
       description: 'A Slack-first AI agent that synthesizes technical conversations into structured GitHub issues. Fully managed by Temporal workflows for fault-tolerant execution and state management.',
-      techStack:   ['Python', 'Temporal', 'LLMs', 'Slack API', 'GitHub Apps'],
+      techStack:   ['Python', 'Temporal', 'Agentic AI', 'OpenAI API', 'FastAPI', 'Webhooks'],
       href:        '#',
     },
     {
       id:          2,
       title:       'CodeForge: Autonomous SWE Agent',
       description: 'An orchestrator agent utilizing the OpenCode SDK to automate software engineering tasks. It handles high-level planning, coding execution, and pull request generation seamlessly.',
-      techStack:   ['Python', 'OpenCode SDK', 'Agentic Workflows', 'Git Orchestration'],
+      techStack:   ['Python',  'LangChain', 'Docker', 'TypeScript', 'GitHub Apps'],
       href:        '#',
     },
     {
       id:          3,
       title:       'Decentralized App Infrastructure',
       description: 'A production-grade, self-hosted environment for personal applications. Built on Proxmox and LXC containers, routed securely via Cloudflare Tunnels with a unified FastAPI gateway.',
-      techStack:   ['Proxmox', 'LXC', 'Cloudflare Tunnels', 'FastAPI', 'Docker'],
+      techStack:   ['Proxmox', 'LXC', 'Docker', 'Cloudflare Tunnels', 'FastAPI', 'System Architecture'],
       href:        '#',
     },
   ],
 
   skills: {
     coreSystems: [
-      'Python', 'FastAPI', 'System Architecture', 'AWS (EC2/RDS/S3)',
-      'Agentic Workflows', 'Hybrid RAG', 'Local LLMs', 'Docker',
-      'Database Design', 'TypeScript',
+      'Python', 'TypeScript', 'FastAPI', 'System Architecture', 
+      'AWS Cloud Architecture', 'Docker', 'RAG Architectures', 'Agentic AI', 
+      'React', 'PostgreSQL', 'Microservices', 'Decentralized Infrastructure',
+      'API Design', 'Database Modeling'
     ],
     toolsAndFrameworks: [
-      'Temporal', 'LangChain', 'Next.js', 'React',
-      'Proxmox', 'Cloudflare Tunnels', 'OpenCode SDK',
-      'Git', 'PostgreSQL', 'GitHub Actions',
+      'Temporal', 'LangChain', 'Next.js',  
+      'Ollama', 'OpenAI API', 'CI/CD Pipelines', 'Proxmox', 
+      'Git', 'OpenCode SDK', 'Cloudflare Tunnels', 'LXC',
+      'Webhooks', 'Tauri', 'GitHub Apps', 'Linux'
     ],
   },
 };

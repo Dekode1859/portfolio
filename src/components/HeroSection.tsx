@@ -14,23 +14,22 @@ export default function HeroSection() {
   // viewport (e.g. user scrolls back to the top from the projects section).
   // The margin fires slightly before the element is fully visible so the
   // 3D network snaps back to the global view with no perceivable delay.
-  const isInView = useInView(sectionRef, { margin: '-10% 0px 0px 0px' });
+  // Same strictly-centred observer as every Project card and Skills section.
+  // When Hero sits at the screen centre → global idle (activeCluster null).
+  const isInView = useInView(sectionRef, { margin: '-45% 0px -45% 0px' });
 
   useEffect(() => {
     if (isInView) {
-      // Hero visible: global idle state, headline hidden
-      useStore.setState({ activeCluster: null, viewMode: 'projects', headerVisible: false });
-    } else {
-      // Scrolled past hero into Projects — reveal the section headline
-      useStore.setState({ headerVisible: true });
+      useStore.setState({ activeCluster: null });
     }
+    // No !isInView branch — the next section's observer sets its own state.
   }, [isInView]);
 
   return (
     <section
       ref={sectionRef}
       id="about"
-      className="min-h-screen flex flex-col justify-center px-6 sm:px-12 lg:px-24 py-24 snap-start"
+      className="min-h-screen flex flex-col justify-center px-6 sm:px-12 lg:px-24 py-24 snap-center"
     >
       <div className="max-w-4xl">
         {/* Eyebrow */}
