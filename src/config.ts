@@ -55,7 +55,10 @@ export const PORTFOLIO_CONFIG: PortfolioConfig = {
     name:        'Pratik Dwivedi',
     role:        'AI Systems Architect',
     description:
-      'I build systems, not just models. I map out how complex systems will function, scale, and communicate before a single line of code is written. I focus on finding the cleanest, industry-standard ways to orchestrate cloud environments, structure databases, and manage tight resource constraints. Whether it\'s designing agentic workflows or architecting decentralized infrastructure, I prioritize production-grade reliability and maintainability.',
+      'I specialize in applied AI architecture, taking solutions beyond simple API wrappers and single-pass LLM calls. ' +
+      'I focus on designing the orchestration required to make complex systems function, scale, and communicate effectively. ' +
+      'By prioritizing structured data modeling and reliable infrastructure—whether cloud-based or self-hosted—I ensure ' +
+      'agentic workflows meet production-grade standards for reliability and maintainability.',
   },
 
   projects: [
